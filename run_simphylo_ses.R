@@ -6,7 +6,7 @@ nfunctions<-1
 
 DispV<-c(0.0001,0.0005,0.001,0.005,0.01,0.05,0.1,0.5,1) #the dispersal rates 
 
-Data_storage<-data.frame(SR=NA,Biomass=NA,Biomass_CV=NA,PD=NA,MPD_abund=NA,MPD_pa=NA,MNTD_pa = NA, MNTD_abund=NA,beta_MPDabund =NA, beta_MNTDabund=NA,sesMPD_abund_z = NA, sesMNTD_abund_z = NA, sesMPD_abund_p = NA, sesMNTD_abund_p = NA,phylogeven_mpd = 0,phylogeven_mntd = 0,phylogcluster_mpd = 0, phylogcluster_mntd = 0, Dispersal=rep(DispV,each=nreplicates),ReplicateNum=factor(1:nreplicates),Scale=rep(c("Local","Regional"),each=length(DispV)*nreplicates)) #building the data frame
+Data_storage<-data.frame(SR=NA,Biomass=NA,Biomass_CV=NA,PD=NA,MPD_abund=NA,MPD_pa=NA,MNTD_pa = NA, MNTD_abund=NA,beta_MPDabund =NA, beta_MNTDabund=NA,sesMPD_abund_z = NA, sesMNTD_abund_z = NA, sesMPD_abund_p = NA, sesMNTD_abund_p = NA,phylogeven_mpd = 0,phylogeven_mntd = 0,phylogcluster_mpd = 0, phylogcluster_mntd = 0, phyloMPD = NA, phyloMNTD = NA, Dispersal=rep(DispV,each=nreplicates),ReplicateNum=factor(1:nreplicates),Scale=rep(c("Local","Regional"),each=length(DispV)*nreplicates)) #building the data frame
 
 MTraits<-t(matrix(1,nspecies,nfunctions))
 fakecom <- matrix(1, ncol = nspecies, nrow = 1)
@@ -144,8 +144,11 @@ if(sesMPDabundz < 0 && sesMPDabundp <= 0.05){
 placeholder = cophenetic(SIH_data[["phylo",i]])
 colnames(placeholder)<-1:nspecies
 rownames(placeholder)<-1:nspecies
-mpdphylo[i,j] = mpd(fakecom,placeholder, abundance.weighted = F) #this should just be regional mpd_pa
+
+mpdphylo[i,j] = mpd(fakecom,placeholder, abundance.weighted = F) #not exactly regional mpd_pa because in this world, no effect of a species going extinct
+Data_storage$phyloMPD[Data_storage$Dispersal==DispV[i] & Data_storage$ReplicateNum==j & Data_storage$Scale == "Regional"] <- mpdphylo[i,j]
 mntdphylo[i,j] = mntd(fakecom,placeholder, abundance.weighted = F) #this should just be regional mntd_pa
+Data_storage$phyloMNTD[Data_storage$Dispersal==DispV[i] & Data_storage$ReplicateNum==j & Data_storage$Scale == "Regional"] <- mpdphylo[i,j]
 phlgs[,,j,i] <- placeholder 
  #Data_storage$phlg_mat[Data_storage$Dispersal==DispV[i] & Data_storage$ReplicateNum==j & Data_storage$Scale == "Regional"]<-phlgs[,,j,i] doesn't work
    
