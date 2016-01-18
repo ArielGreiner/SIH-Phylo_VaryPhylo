@@ -74,7 +74,7 @@ phylo<-as.phylo(hclust(daisy(cbind(eOptimum,eff_values)),method ="ward"))
 uncorr <- matrix(data = c(1,0,0,1), nrow = 2, ncol = 2)	
 model_traitvals[,,i] <- sim.char(phylo,uncorr,nsim = 1, model = "BM", root = 1)
 }
-
+#note: when looking at the basal code of rcoal, noticed that there was a 'rexp' so the set.seed() that is in the code currently should be sufficient to keep things the same on every run... 
 nspecies <- 7
 uncorr <- matrix(data = c(1,0,0,1), nrow = 2, ncol = 2)
 phylo <- rcoal(nspecies)
