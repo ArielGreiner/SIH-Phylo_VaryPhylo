@@ -146,7 +146,7 @@ rownames(placeholder)<-1:nspecies
 mpdphylo[i,j] = mpd(fakecom,placeholder, abundance.weighted = F) #not exactly regional mpd_pa because in this world, no effect of a species going extinct
 Data_storage$phyloMPD[Data_storage$Dispersal==DispV[i] & Data_storage$ReplicateNum==j & Data_storage$Scale == "Regional"] <- mpdphylo[i,j]
 mntdphylo[i,j] = mntd(fakecom,placeholder, abundance.weighted = F) #this should just be regional mntd_pa
-Data_storage$phyloMNTD[Data_storage$Dispersal==DispV[i] & Data_storage$ReplicateNum==j & Data_storage$Scale == "Regional"] <- mpdphylo[i,j]
+Data_storage$phyloMNTD[Data_storage$Dispersal==DispV[i] & Data_storage$ReplicateNum==j & Data_storage$Scale == "Regional"] <- mntdphylo[i,j]
 phlgs[,,j,i] <- placeholder 
  #Data_storage$phlg_mat[Data_storage$Dispersal==DispV[i] & Data_storage$ReplicateNum==j & Data_storage$Scale == "Regional"]<-phlgs[,,j,i] doesn't work
    
