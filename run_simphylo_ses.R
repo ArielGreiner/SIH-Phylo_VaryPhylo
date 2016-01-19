@@ -22,8 +22,6 @@ eff_sd <- 0.005
 eff_mean <- 0.2
 SIH_data<-sapply(DispV,SIH_function,species=nspecies,patches=npatches,eff_vary=T,eff_sd=eff_sd, eff_mean = eff_mean)
 
-
-#removed the SES measures b/c on 1.12.2016 they weren't working 
 for(i in 1:length(DispV)){
  #BIOMASS
   LFunc_rate1<-apply(SIH_data[["Abund",i]],1,function(M){MTraits%*%M}) #calculates the amount of each function in each patch based on the abundances from the SIH model
