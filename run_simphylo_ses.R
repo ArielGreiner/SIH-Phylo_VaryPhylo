@@ -1,7 +1,7 @@
 require(geiger)
 nspecies<-7 #the number of species
 npatches<-10 #the number of patches
-nreplicates<-100 #number of replicates
+nreplicates<-1 #number of replicates
 nfunctions<-1
 
 DispV<-c(0.0001,0.0005,0.001,0.005,0.01,0.05,0.1,0.5,1) #the dispersal rates 
@@ -18,9 +18,10 @@ phlgs <- array(data = NA, dim=c(nspecies, nspecies, nreplicates, length(DispV)))
 for(j in 1:nreplicates){
 #runs the SIH model at all dispersal rates in DispV and saves the abundances and productivity in a list
 set.seed(j)
+model_select = "BM"
 eff_sd <- 0.005
 eff_mean <- 0.2
-SIH_data<-sapply(DispV,SIH_function,species=nspecies,patches=npatches,eff_vary=T,eff_sd=eff_sd, eff_mean = eff_mean)
+SIH_data<-sapply(DispV,SIH_function,species=nspecies,patches=npatches,eff_vary=T,eff_sd=eff_sd, eff_mean = eff_mean, model_ = model_select)
 
 for(i in 1:length(DispV)){
  #BIOMASS
