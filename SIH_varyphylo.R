@@ -1,4 +1,4 @@
-SIH_function<-function(dispersal=0.001,species=9,patches=30,eff_vary=F,eff_sd=NA, eff_mean = NA){ 
+SIH_function<-function(dispersal=0.001,model_ = NA,species=9,patches=30,eff_vary=F,eff_sd=NA, eff_mean = NA){ 
 	#can define things here and then don't need to define them below 
   require(cluster)
   require(picante)
@@ -28,7 +28,7 @@ SIH_function<-function(dispersal=0.001,species=9,patches=30,eff_vary=F,eff_sd=NA
   #tiplabels(pch=22,bg=heat.colors(species)[1:species]) #heat.colors = white -> red
   
 #getting trait values
-traits<-sim.char(phylo,uncorr,nsim = 1, model = "BM", root = 1) #traits is an array, oddly enough
+traits<-sim.char(phylo,uncorr,nsim = 1, model = model_, root = 1) #traits is an array, oddly enough
 traits.stand<-decostand(traits[,1,1],"range") #normalizes the H trait b/w 0 and 1
 traits.stand2<-decostand(traits[,2,1],"standardize")
 traits.stand2_fixed <- ((eff_sd)*traits.stand2)+(eff_mean) #makes e a normal r.v. with mean = 0.2, s.d. = 0.005
